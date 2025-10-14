@@ -1,0 +1,685 @@
+[
+  {
+    "id": "red_line",
+    "name": "淡水信義線",
+    "backgroundColor": "bg-mrt-red",
+    "stations": [
+      {
+        "id": "R28",
+        "name": "淡水站",
+        "line": "紅線",
+        "location": { "lat": 25.1683, "lng": 121.4468 }
+      },
+      {
+        "id": "R27",
+        "name": "紅樹林站",
+        "line": "紅線",
+        "location": { "lat": 25.1504, "lng": 121.4646 }
+      },
+      {
+        "id": "R26",
+        "name": "竹圍站",
+        "line": "紅線",
+        "location": { "lat": 25.1384, "lng": 121.4827 }
+      },
+      {
+        "id": "R25",
+        "name": "關渡站",
+        "line": "紅線",
+        "location": { "lat": 25.1221, "lng": 121.4925 }
+      },
+      {
+        "id": "R24",
+        "name": "忠義站",
+        "line": "紅線",
+        "location": { "lat": 25.1119, "lng": 121.5036 }
+      },
+      {
+        "id": "R23",
+        "name": "復興崗站",
+        "line": "紅線",
+        "location": { "lat": 25.1017, "lng": 121.5126 }
+      },
+      {
+        "id": "R22",
+        "name": "北投站",
+        "line": "紅線",
+        "location": { "lat": 25.1378, "lng": 121.4822 }
+      },
+      {
+        "id": "R21",
+        "name": "奇岩站",
+        "line": "紅線",
+        "location": { "lat": 25.1189, "lng": 121.5037 }
+      },
+      {
+        "id": "R20",
+        "name": "唭哩岸站",
+        "line": "紅線",
+        "location": { "lat": 25.1205, "lng": 121.5127 }
+      },
+      {
+        "id": "R19",
+        "name": "石牌站",
+        "line": "紅線",
+        "location": { "lat": 25.1200, "lng": 121.5226 }
+      },
+      {
+        "id": "R18",
+        "name": "明德站",
+        "line": "紅線",
+        "location": { "lat": 25.1182, "lng": 121.5323 }
+      },
+      {
+        "id": "R17",
+        "name": "芝山站",
+        "line": "紅線",
+        "location": { "lat": 25.1097, "lng": 121.5317 }
+      },
+      {
+        "id": "R16",
+        "name": "士林站",
+        "line": "紅線",
+        "location": { "lat": 25.0934, "lng": 121.5233 }
+      },
+      {
+        "id": "R15",
+        "name": "劍潭站",
+        "line": "紅線",
+        "location": { "lat": 25.0792, "lng": 121.5244 }
+      },
+      {
+        "id": "R14",
+        "name": "圓山站",
+        "line": "紅線",
+        "location": { "lat": 25.0725, "lng": 121.5218 }
+      },
+      {
+        "id": "R13",
+        "name": "民權西路站",
+        "line": "紅線",
+        "location": { "lat": 25.0645, "lng": 121.5204 }
+      },
+      {
+        "id": "R12",
+        "name": "雙連站",
+        "line": "紅線",
+        "location": { "lat": 25.0573, "lng": 121.5215 }
+      },
+      {
+        "id": "R11",
+        "name": "中山站",
+        "line": "紅線",
+        "location": { "lat": 25.0526, "lng": 121.5228 }
+      },
+      {
+        "id": "R10",
+        "name": "台北車站",
+        "line": "紅線",
+        "location": { "lat": 25.0478, "lng": 121.5173 }
+      },
+      {
+        "id": "R09",
+        "name": "台大醫院站",
+        "line": "紅線",
+        "location": { "lat": 25.0401, "lng": 121.5165 }
+      },
+      {
+        "id": "R08",
+        "name": "中正紀念堂站",
+        "line": "紅線",
+        "location": { "lat": 25.0357, "lng": 121.5166 }
+      },
+      {
+        "id": "R07",
+        "name": "東門站",
+        "line": "紅線",
+        "location": { "lat": 25.0321, "lng": 121.5284 }
+      },
+      {
+        "id": "R06",
+        "name": "大安森林公園站",
+        "line": "紅線",
+        "location": { "lat": 25.0315, "lng": 121.5365 }
+      },
+      {
+        "id": "R05",
+        "name": "大安站",
+        "line": "紅線",
+        "location": { "lat": 25.0336, "lng": 121.5439 }
+      },
+      {
+        "id": "R04",
+        "name": "信義安和站",
+        "line": "紅線",
+        "location": { "lat": 25.0331, "lng": 121.5540 }
+      },
+      {
+        "id": "R03",
+        "name": "台北101/世貿站",
+        "line": "紅線",
+        "location": { "lat": 25.0336, "lng": 121.5658 }
+      },
+      {
+        "id": "R02",
+        "name": "象山站",
+        "line": "紅線",
+        "location": { "lat": 25.0313, "lng": 121.5714 }
+      }
+    ]
+  },
+  {
+    "id": "blue_line",
+    "name": "板南線",
+    "backgroundColor": "bg-mrt-blue",
+    "stations": [
+      {
+        "id": "BL01",
+        "name": "頂埔站",
+        "line": "藍線",
+        "location": { "lat": 24.9575, "lng": 121.4286 }
+      },
+      {
+        "id": "BL02",
+        "name": "永寧站",
+        "line": "藍線",
+        "location": { "lat": 24.9654, "lng": 121.4398 }
+      },
+      {
+        "id": "BL03",
+        "name": "土城站",
+        "line": "藍線",
+        "location": { "lat": 24.9748, "lng": 121.4485 }
+      },
+      {
+        "id": "BL04",
+        "name": "海山站",
+        "line": "藍線",
+        "location": { "lat": 24.9818, "lng": 121.4578 }
+      },
+      {
+        "id": "BL05",
+        "name": "亞東醫院站",
+        "line": "藍線",
+        "location": { "lat": 24.9926, "lng": 121.4688 }
+      },
+      {
+        "id": "BL06",
+        "name": "府中站",
+        "line": "藍線",
+        "location": { "lat": 25.0041, "lng": 121.4746 }
+      },
+      {
+        "id": "BL07",
+        "name": "板橋站",
+        "line": "藍線",
+        "location": { "lat": 25.0135, "lng": 121.4667 }
+      },
+      {
+        "id": "BL08",
+        "name": "新埔站",
+        "line": "藍線",
+        "location": { "lat": 25.0215, "lng": 121.4756 }
+      },
+      {
+        "id": "BL09",
+        "name": "江子翠站",
+        "line": "藍線",
+        "location": { "lat": 25.0270, "lng": 121.4880 }
+      },
+      {
+        "id": "BL10",
+        "name": "龍山寺站",
+        "line": "藍線",
+        "location": { "lat": 25.0354, "lng": 121.5036 }
+      },
+      {
+        "id": "BL11",
+        "name": "西門站",
+        "line": "藍線",
+        "location": { "lat": 25.0446, "lng": 121.5076 }
+      },
+      {
+        "id": "BL12",
+        "name": "台北車站",
+        "line": "藍線",
+        "location": { "lat": 25.0478, "lng": 121.5173 }
+      },
+      {
+        "id": "BL13",
+        "name": "善導寺站",
+        "line": "藍線",
+        "location": { "lat": 25.0450, "lng": 121.5230 }
+      },
+      {
+        "id": "BL14",
+        "name": "忠孝新生站",
+        "line": "藍線",
+        "location": { "lat": 25.0416, "lng": 121.5303 }
+      },
+      {
+        "id": "BL15",
+        "name": "忠孝復興站",
+        "line": "藍線",
+        "location": { "lat": 25.0416, "lng": 121.5441 }
+      },
+      {
+        "id": "BL16",
+        "name": "忠孝敦化站",
+        "line": "藍線",
+        "location": { "lat": 25.0428, "lng": 121.5517 }
+      },
+      {
+        "id": "BL17",
+        "name": "國父紀念館站",
+        "line": "藍線",
+        "location": { "lat": 25.0428, "lng": 121.5604 }
+      },
+      {
+        "id": "BL18",
+        "name": "市政府站",
+        "line": "藍線",
+        "location": { "lat": 25.0384, "lng": 121.5676 }
+      },
+      {
+        "id": "BL19",
+        "name": "永春站",
+        "line": "藍線",
+        "location": { "lat": 25.0384, "lng": 121.5746 }
+      },
+      {
+        "id": "BL20",
+        "name": "後山埤站",
+        "line": "藍線",
+        "location": { "lat": 25.0440, "lng": 121.5796 }
+      },
+      {
+        "id": "BL21",
+        "name": "昆陽站",
+        "line": "藍線",
+        "location": { "lat": 25.0506, "lng": 121.5833 }
+      },
+      {
+        "id": "BL22",
+        "name": "南港站",
+        "line": "藍線",
+        "location": { "lat": 25.0528, "lng": 121.5950 }
+      },
+      {
+        "id": "BL23",
+        "name": "南港展覽館站",
+        "line": "藍線",
+        "location": { "lat": 25.0706, "lng": 121.6190 }
+      }
+    ]
+  },
+  {
+    "id": "brown_line",
+    "name": "文湖線",
+    "backgroundColor": "bg-mrt-brown",
+    "stations": [
+      {
+        "id": "BR01",
+        "name": "動物園站",
+        "line": "棕線",
+        "location": { "lat": 24.9890, "lng": 121.5833 }
+      },
+      {
+        "id": "BR02",
+        "name": "木柵站",
+        "line": "棕線",
+        "location": { "lat": 24.9960, "lng": 121.5746 }
+      },
+      {
+        "id": "BR03",
+        "name": "萬芳社區站",
+        "line": "棕線",
+        "location": { "lat": 24.9988, "lng": 121.5658 }
+      },
+      {
+        "id": "BR04",
+        "name": "萬芳醫院站",
+        "line": "棕線",
+        "location": { "lat": 25.0069, "lng": 121.5584 }
+      },
+      {
+        "id": "BR05",
+        "name": "辛亥站",
+        "line": "棕線",
+        "location": { "lat": 25.0131, "lng": 121.5539 }
+      },
+      {
+        "id": "BR06",
+        "name": "麟光站",
+        "line": "棕線",
+        "location": { "lat": 25.0201, "lng": 121.5516 }
+      },
+      {
+        "id": "BR07",
+        "name": "六張犁站",
+        "line": "棕線",
+        "location": { "lat": 25.0252, "lng": 121.5471 }
+      },
+      {
+        "id": "BR08",
+        "name": "科技大樓站",
+        "line": "棕線",
+        "location": { "lat": 25.0270, "lng": 121.5434 }
+      },
+      {
+        "id": "BR09",
+        "name": "大安站",
+        "line": "棕線",
+        "location": { "lat": 25.0336, "lng": 121.5439 }
+      },
+      {
+        "id": "BR10",
+        "name": "忠孝復興站",
+        "line": "棕線",
+        "location": { "lat": 25.0416, "lng": 121.5441 }
+      },
+      {
+        "id": "BR11",
+        "name": "南京復興站",
+        "line": "棕線",
+        "location": { "lat": 25.0525, "lng": 121.5445 }
+      },
+      {
+        "id": "BR12",
+        "name": "中山國中站",
+        "line": "棕線",
+        "location": { "lat": 25.0605, "lng": 121.5463 }
+      },
+      {
+        "id": "BR13",
+        "name": "松山機場站",
+        "line": "棕線",
+        "location": { "lat": 25.0620, "lng": 121.5518 }
+      },
+      {
+        "id": "BR14",
+        "name": "大直站",
+        "line": "棕線",
+        "location": { "lat": 25.0784, "lng": 121.5562 }
+      },
+      {
+        "id": "BR15",
+        "name": "劍南路站",
+        "line": "棕線",
+        "location": { "lat": 25.0847, "lng": 121.5565 }
+      },
+      {
+        "id": "BR16",
+        "name": "西湖站",
+        "line": "棕線",
+        "location": { "lat": 25.0847, "lng": 121.5645 }
+      },
+      {
+        "id": "BR17",
+        "name": "港墘站",
+        "line": "棕線",
+        "location": { "lat": 25.0818, "lng": 121.5746 }
+      },
+      {
+        "id": "BR18",
+        "name": "文德站",
+        "line": "棕線",
+        "location": { "lat": 25.0805, "lng": 121.5855 }
+      },
+      {
+        "id": "BR19",
+        "name": "內湖站",
+        "line": "棕線",
+        "location": { "lat": 25.0827, "lng": 121.5930 }
+      },
+      {
+        "id": "BR20",
+        "name": "大湖公園站",
+        "line": "棕線",
+        "location": { "lat": 25.0863, "lng": 121.6027 }
+      },
+      {
+        "id": "BR21",
+        "name": "葫洲站",
+        "line": "棕線",
+        "location": { "lat": 25.0877, "lng": 121.6116 }
+      },
+      {
+        "id": "BR22",
+        "name": "東湖站",
+        "line": "棕線",
+        "location": { "lat": 25.0792, "lng": 121.6210 }
+      },
+      {
+        "id": "BR23",
+        "name": "南港軟體園區站",
+        "line": "棕線",
+        "location": { "lat": 25.0682, "lng": 121.6152 }
+      },
+      {
+        "id": "BR24",
+        "name": "南港展覽館站",
+        "line": "棕線",
+        "location": { "lat": 25.0706, "lng": 121.6190 }
+      }
+    ]
+  },
+  {
+    "id": "green_line",
+    "name": "松山新店線",
+    "backgroundColor": "bg-mrt-green",
+    "stations": [
+      {
+        "id": "G01",
+        "name": "新店站",
+        "line": "綠線",
+        "location": { "lat": 24.9566, "lng": 121.5385 }
+      },
+      {
+        "id": "G02",
+        "name": "新店區公所站",
+        "line": "綠線",
+        "location": { "lat": 24.9654, "lng": 121.5424 }
+      },
+      {
+        "id": "G03",
+        "name": "七張站",
+        "line": "綠線",
+        "location": { "lat": 24.9760, "lng": 121.5434 }
+      },
+      {
+        "id": "G03A",
+        "name": "小碧潭站 (支線)",
+        "line": "綠線",
+        "location": { "lat": 24.9800, "lng": 121.5280 }
+      },
+      {
+        "id": "G04",
+        "name": "大坪林站",
+        "line": "綠線",
+        "location": { "lat": 24.9926, "lng": 121.5380 }
+      },
+      {
+        "id": "G05",
+        "name": "景美站",
+        "line": "綠線",
+        "location": { "lat": 25.0000, "lng": 121.5375 }
+      },
+      {
+        "id": "G06",
+        "name": "萬隆站",
+        "line": "綠線",
+        "location": { "lat": 25.0062, "lng": 121.5370 }
+      },
+      {
+        "id": "G07",
+        "name": "公館站",
+        "line": "綠線",
+        "location": { "lat": 25.0135, "lng": 121.5370 }
+      },
+      {
+        "id": "G08",
+        "name": "台電大樓站",
+        "line": "綠線",
+        "location": { "lat": 25.0195, "lng": 121.5320 }
+      },
+      {
+        "id": "G09",
+        "name": "古亭站",
+        "line": "綠線",
+        "location": { "lat": 25.0336, "lng": 121.5230 }
+      },
+      {
+        "id": "G10",
+        "name": "中正紀念堂站",
+        "line": "綠線",
+        "location": { "lat": 25.0357, "lng": 121.5166 }
+      },
+      {
+        "id": "G11",
+        "name": "小南門站",
+        "line": "綠線",
+        "location": { "lat": 25.0397, "lng": 121.5115 }
+      },
+      {
+        "id": "G12",
+        "name": "西門站",
+        "line": "綠線",
+        "location": { "lat": 25.0446, "lng": 121.5076 }
+      },
+      {
+        "id": "G13",
+        "name": "北門站",
+        "line": "綠線",
+        "location": { "lat": 25.0504, "lng": 121.5100 }
+      },
+      {
+        "id": "G14",
+        "name": "中山站",
+        "line": "綠線",
+        "location": { "lat": 25.0526, "lng": 121.5228 }
+      },
+      {
+        "id": "G15",
+        "name": "松江南京站",
+        "line": "綠線",
+        "location": { "lat": 25.0519, "lng": 121.5367 }
+      },
+      {
+        "id": "G16",
+        "name": "南京復興站",
+        "line": "綠線",
+        "location": { "lat": 25.0525, "lng": 121.5445 }
+      },
+      {
+        "id": "G17",
+        "name": "台北小巨蛋站",
+        "line": "綠線",
+        "location": { "lat": 25.0494, "lng": 121.5515 }
+      },
+      {
+        "id": "G18",
+        "name": "南京三民站",
+        "line": "綠線",
+        "location": { "lat": 25.0519, "lng": 121.5606 }
+      },
+      {
+        "id": "G19",
+        "name": "松山站",
+        "line": "綠線",
+        "location": { "lat": 25.0519, "lng": 121.5760 }
+      }
+    ]
+  },
+  {
+    "id": "yellow_line",
+    "name": "環狀線",
+    "backgroundColor": "bg-mrt-yellow",
+    "stations": [
+      {
+        "id": "Y07",
+        "name": "大坪林站",
+        "line": "環狀線",
+        "location": { "lat": 24.9926, "lng": 121.5380 }
+      },
+      {
+        "id": "Y08",
+        "name": "十四張站",
+        "line": "環狀線",
+        "location": { "lat": 24.9995, "lng": 121.5285 }
+      },
+      {
+        "id": "Y09",
+        "name": "秀朗橋站",
+        "line": "環狀線",
+        "location": { "lat": 25.0003, "lng": 121.5173 }
+      },
+      {
+        "id": "Y10",
+        "name": "景平站",
+        "line": "環狀線",
+        "location": { "lat": 25.0000, "lng": 121.5073 }
+      },
+      {
+        "id": "Y11",
+        "name": "景安站",
+        "line": "環狀線",
+        "location": { "lat": 24.9972, "lng": 121.5097 }
+      },
+      {
+        "id": "Y12",
+        "name": "中和站",
+        "line": "環狀線",
+        "location": { "lat": 25.0065, "lng": 121.4920 }
+      },
+      {
+        "id": "Y13",
+        "name": "橋和站",
+        "line": "環狀線",
+        "location": { "lat": 25.0069, "lng": 121.4795 }
+      },
+      {
+        "id": "Y14",
+        "name": "中原站",
+        "line": "環狀線",
+        "location": { "lat": 25.0135, "lng": 121.4715 }
+      },
+      {
+        "id": "Y15",
+        "name": "板新站",
+        "line": "環狀線",
+        "location": { "lat": 25.0150, "lng": 121.4655 }
+      },
+      {
+        "id": "Y16",
+        "name": "板橋站",
+        "line": "環狀線",
+        "location": { "lat": 25.0135, "lng": 121.4667 }
+      },
+      {
+        "id": "Y17",
+        "name": "新埔民生站",
+        "line": "環狀線",
+        "location": { "lat": 25.0215, "lng": 121.4756 }
+      },
+      {
+        "id": "Y18",
+        "name": "頭前庄站",
+        "line": "環狀線",
+        "location": { "lat": 25.0460, "lng": 121.4530 }
+      },
+      {
+        "id": "Y19",
+        "name": "幸福站",
+        "line": "環狀線",
+        "location": { "lat": 25.0505, "lng": 121.4420 }
+      },
+      {
+        "id": "Y20",
+        "name": "新北產業園區站",
+        "line": "環狀線",
+        "location": { "lat": 25.0645, "lng": 121.4402 }
+      }
+    ]
+  }
+]

@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    margin: 0;
+    font-family: 'Noto Serif',sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: max(884px, 100dvh);
+    background-color: #fff9f2;
+  }
+
+  /* 重置按鈕樣式 */
+  button {
+    appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* 重置輸入框樣式 */
+  input,
+  textarea,
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    outline: none;
+    border-radius: 0;
+  }
+
+  /* 移除輸入框自動填充的背景色 */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+@layer utilities {
+  /* Gradient backgrounds */
+  .bg-gradient-cute {
+    background-image: linear-gradient(to right, #ffc857, #ff8c42);
+  }
+
+  .text-gradient-cute {
+    background: linear-gradient(to right, #ff8c42, #ffc857);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Theme colors */
+  .bg-background-light {
+    background-color: #fff9f2;
+  }
+
+  .bg-background-dark {
+    background-color: #2a2a2a;
+  }
+
+  .text-text-light {
+    color: #4a4a4a;
+  }
+
+  .text-text-dark {
+    color: #ffffff;
+  }
+
+  .text-primary {
+    color: #FAC638;
+  }
+
+  .bg-primary {
+    background-color: #FAC638;
+  }
+
+  .bg-primary-light {
+    background-color: #ffc857;
+  }
+
+  .border-primary-light {
+    border-color: rgba(250, 198, 56, 0.5);
+  }
+
+  /* MRT Line Colors */
+  .bg-mrt-blue {
+    background-color: #007bff;
+  }
+
+  .bg-mrt-green {
+    background-color: #00a950;
+  }
+
+  .bg-mrt-orange {
+    background-color: #f5a623;
+  }
+
+  .bg-mrt-brown {
+    background-color: #c4a287;
+  }
+
+  .bg-mrt-yellow {
+    background-color: #ffd700;
+  }
+
+  .bg-mrt-red {
+    background-color: #e01618;
+  }
+
+  .text-mrt-blue {
+    color: #007bff;
+  }
+
+  .text-mrt-green {
+    color: #00a950;
+  }
+
+  .text-mrt-orange {
+    color: #f5a623;
+  }
+
+  .text-mrt-brown {
+    color: #c4a287;
+  }
+
+  .text-mrt-yellow {
+    color: #ffd700;
+  }
+
+  .text-mrt-red {
+    color: #e01618;
+  }
+
+  /* Cute shadows */
+  .shadow-cute {
+    box-shadow: 0 4px 6px -1px rgba(255, 140, 66, 0.2), 0 2px 4px -2px rgba(255, 140, 66, 0.1);
+  }
+
+  .shadow-cute-lg {
+    box-shadow: 0 10px 15px -3px rgba(255, 140, 66, 0.2), 0 4px 6px -4px rgba(255, 140, 66, 0.1);
+  }
+
+  /* Safe area for mobile devices */
+  .h-safe-area-bottom {
+    height: env(safe-area-inset-bottom);
+  }
+
+  /* Scrollbar hiding */
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+
+  .overflow-x-auto {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

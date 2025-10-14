@@ -1,0 +1,402 @@
+[
+  {
+    "place_id": "station_xiangshan_1",
+    "name": "一蘭拉麵 信義店",
+    "rating": 4.3,
+    "user_ratings_total": 2589,
+    "price_level": 2,
+    "description": "博多風味豚骨拉麵，個人座位用餐體驗。",
+    "website": "https://ichiran.com/tw/",
+    "types": ["restaurant", "japanese", "ramen"],
+    "vicinity": "台北市信義區松壽路 11 號",
+    "geometry": {
+      "location": { "lat": 25.0336, "lng": 121.5646 }
+    },
+    "distance_m": 280,
+    "station": {
+      "name": "象山站",
+      "line": "紅線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_xiangshan_2",
+    "name": "鼎泰豐 信義店",
+    "rating": 4.5,
+    "user_ratings_total": 3421,
+    "price_level": 3,
+    "description": "知名小籠包名店，精緻點心與貼心服務。",
+    "website": "https://www.dintaifung.com.tw/",
+    "types": ["restaurant", "chinese", "dim_sum"],
+    "vicinity": "台北市信義區松高路 19 號",
+    "geometry": {
+      "location": { "lat": 25.0340, "lng": 121.5650 }
+    },
+    "distance_m": 320,
+    "station": {
+      "name": "象山站",
+      "line": "紅線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_xiangshan_3",
+    "name": "瓦城泰式料理",
+    "rating": 4.2,
+    "user_ratings_total": 1876,
+    "price_level": 2,
+    "description": "經典泰式料理，適合聚餐分享。",
+    "website": "https://www.thaitown.com.tw/",
+    "types": ["restaurant", "thai"],
+    "vicinity": "台北市信義區松仁路 28 號",
+    "geometry": {
+      "location": { "lat": 25.0330, "lng": 121.5640 }
+    },
+    "distance_m": 250,
+    "station": {
+      "name": "象山站",
+      "line": "紅線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_xiangshan_4",
+    "name": "漢堡王 信義店",
+    "rating": 4.0,
+    "user_ratings_total": 890,
+    "price_level": 1,
+    "description": "美式速食連鎖，火烤厚牛經典。",
+    "website": "https://www.burgerking.com.tw/",
+    "types": ["restaurant", "american", "fast_food"],
+    "vicinity": "台北市信義區松壽路 12 號",
+    "geometry": {
+      "location": { "lat": 25.0338, "lng": 121.5645 }
+    },
+    "distance_m": 290,
+    "station": {
+      "name": "象山站",
+      "line": "紅線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_xiangshan_5",
+    "name": "星巴克 象山門市",
+    "rating": 4.1,
+    "user_ratings_total": 567,
+    "price_level": 2,
+    "description": "咖啡與輕食，適合短暫休息與聊天。",
+    "website": "https://www.starbucks.com.tw/",
+    "types": ["cafe", "coffee"],
+    "vicinity": "台北市信義區信義路五段 150 號",
+    "geometry": {
+      "location": { "lat": 25.0332, "lng": 121.5642 }
+    },
+    "distance_m": 200,
+    "station": {
+      "name": "象山站",
+      "line": "紅線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_memorial_1",
+    "name": "添好運點心專門店",
+    "rating": 4.4,
+    "user_ratings_total": 2134,
+    "price_level": 2,
+    "description": "港式點心名店，叉燒包與腸粉人氣高。",
+    "website": "https://www.timhowan.com.tw/",
+    "types": ["restaurant", "chinese", "dim_sum"],
+    "vicinity": "台北市大安區光復南路 280 號",
+    "geometry": {
+      "location": { "lat": 25.0415, "lng": 121.5575 }
+    },
+    "distance_m": 180,
+    "station": {
+      "name": "國父紀念館站",
+      "line": "藍線"
+    },
+    "photos": ["src/assets/images/restaurants/image-timhaw.jpg"]
+  },
+  {
+    "place_id": "station_memorial_2",
+    "name": "春水堂人文茶館",
+    "rating": 4.3,
+    "user_ratings_total": 1543,
+    "price_level": 2,
+    "description": "手搖茶創始品牌，茶點簡餐聚會好去處。",
+    "website": "https://www.chunshuitang.com.tw/",
+    "types": ["cafe", "taiwanese"],
+    "vicinity": "台北市大安區光復南路 290 號",
+    "geometry": {
+      "location": { "lat": 25.0420, "lng": 121.5580 }
+    },
+    "distance_m": 220,
+    "station": {
+      "name": "國父紀念館站",
+      "line": "藍線"
+    },
+    "photos": ["src/assets/images/restaurants/image-chunsuitang.jpeg"]
+  },
+  {
+    "place_id": "station_memorial_3",
+    "name": "麥當勞 光復店",
+    "rating": 3.9,
+    "user_ratings_total": 678,
+    "price_level": 1,
+    "description": "全球連鎖速食，供應漢堡薯條與早餐。",
+    "website": "https://www.mcdonalds.com.tw/",
+    "types": ["restaurant", "american", "fast_food"],
+    "vicinity": "台北市大安區光復南路 260 號",
+    "geometry": {
+      "location": { "lat": 25.0410, "lng": 121.5570 }
+    },
+    "distance_m": 150,
+    "station": {
+      "name": "國父紀念館站",
+      "line": "藍線"
+    },
+    "photos": ["src/assets/images/restaurants/image-mc.webp"]
+  },
+  {
+    "place_id": "station_memorial_4",
+    "name": "八色烤肉",
+    "rating": 4.5,
+    "user_ratings_total": 2890,
+    "price_level": 3,
+    "description": "韓式烤肉套餐，多種調味五花肉。",
+    "website": "https://www.palsaik.com.tw/",
+    "types": ["restaurant", "korean", "bbq"],
+    "vicinity": "台北市大安區光復南路 280 號 B1",
+    "geometry": {
+      "location": { "lat": 25.0418, "lng": 121.5578 }
+    },
+    "distance_m": 190,
+    "station": {
+      "name": "國父紀念館站",
+      "line": "藍線"
+    },
+    "photos": ["src/assets/images/restaurants/image-eight-meats.jpg"]
+  },
+  {
+    "place_id": "station_memorial_5",
+    "name": "路易莎咖啡 光復店",
+    "rating": 4.2,
+    "user_ratings_total": 456,
+    "price_level": 1,
+    "description": "台灣連鎖咖啡品牌，提供咖啡與輕食。",
+    "website": "https://www.louisacoffee.co/",
+    "types": ["cafe", "coffee"],
+    "vicinity": "台北市大安區光復南路 270 號",
+    "geometry": {
+      "location": { "lat": 25.0412, "lng": 121.5572 }
+    },
+    "distance_m": 160,
+    "station": {
+      "name": "國父紀念館站",
+      "line": "藍線"
+    },
+    "photos": ["src/assets/images/restaurants/image-luisa.jpg"]
+  },
+  {
+    "place_id": "station_cityh_1",
+    "name": "鼎王麻辣鍋",
+    "rating": 4.4,
+    "user_ratings_total": 3210,
+    "price_level": 3,
+    "description": "麻辣鍋名店，鴛鴦鍋與多款湯底選擇。",
+    "website": "https://www.tripodking.com.tw/",
+    "types": ["restaurant", "chinese", "hot_pot"],
+    "vicinity": "台北市信義區松高路 12 號",
+    "geometry": {
+      "location": { "lat": 25.0405, "lng": 121.5670 }
+    },
+    "distance_m": 300,
+    "station": {
+      "name": "市政府站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_cityh_2",
+    "name": "樂檸漢堡",
+    "rating": 4.3,
+    "user_ratings_total": 1234,
+    "price_level": 2,
+    "description": "台式手作漢堡與早午餐，清爽口味。",
+    "website": "https://www.burgerlab.com.tw/",
+    "types": ["restaurant", "american", "burger"],
+    "vicinity": "台北市信義區松高路 18 號",
+    "geometry": {
+      "location": { "lat": 25.0408, "lng": 121.5675 }
+    },
+    "distance_m": 250,
+    "station": {
+      "name": "市政府站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_cityh_3",
+    "name": "壽司郎",
+    "rating": 4.2,
+    "user_ratings_total": 2567,
+    "price_level": 2,
+    "description": "日系迴轉壽司，價格親民選擇多。",
+    "website": "https://www.sushiro.com.tw/",
+    "types": ["restaurant", "japanese", "sushi"],
+    "vicinity": "台北市信義區松仁路 97 號",
+    "geometry": {
+      "location": { "lat": 25.0400, "lng": 121.5665 }
+    },
+    "distance_m": 280,
+    "station": {
+      "name": "市政府站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_cityh_4",
+    "name": "築間幸福鍋物",
+    "rating": 4.1,
+    "user_ratings_total": 1890,
+    "price_level": 2,
+    "description": "個人鍋物與海鮮肉品，附飲料冰品吧。",
+    "website": "https://www.joyfullhotpot.com/",
+    "types": ["restaurant", "taiwanese", "hot_pot"],
+    "vicinity": "台北市信義區松高路 15 號",
+    "geometry": {
+      "location": { "lat": 25.0410, "lng": 121.5672 }
+    },
+    "distance_m": 270,
+    "station": {
+      "name": "市政府站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_cityh_5",
+    "name": "摩斯漢堡 市府店",
+    "rating": 4.0,
+    "user_ratings_total": 890,
+    "price_level": 1,
+    "description": "日系速食品牌，米漢堡與清爽漢堡著稱。",
+    "website": "https://www.mos.com.tw/",
+    "types": ["restaurant", "japanese", "fast_food"],
+    "vicinity": "台北市信義區松仁路 90 號",
+    "geometry": {
+      "location": { "lat": 25.0398, "lng": 121.5663 }
+    },
+    "distance_m": 240,
+    "station": {
+      "name": "市政府站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_nanjing_1",
+    "name": "屯京拉麵",
+    "rating": 4.5,
+    "user_ratings_total": 3456,
+    "price_level": 2,
+    "description": "東京風味豚骨拉麵，濃厚湯頭與叉燒。",
+    "website": "https://www.tonchin.com.tw/",
+    "types": ["restaurant", "japanese", "ramen"],
+    "vicinity": "台北市中山區南京東路三段 256 號",
+    "geometry": {
+      "location": { "lat": 25.0525, "lng": 121.5445 }
+    },
+    "distance_m": 180,
+    "station": {
+      "name": "南京復興站",
+      "line": "綠線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_nanjing_2",
+    "name": "三商巧福",
+    "rating": 3.8,
+    "user_ratings_total": 678,
+    "price_level": 1,
+    "description": "台式牛肉麵與家常料理，平價快速。",
+    "website": "https://www.sanshang-qiaofu.com.tw/",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "台北市中山區南京東路三段 260 號",
+    "geometry": {
+      "location": { "lat": 25.0528, "lng": 121.5448 }
+    },
+    "distance_m": 200,
+    "station": {
+      "name": "南京復興站",
+      "line": "綠線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_nanjing_3",
+    "name": "Mo-Mo-Paradise",
+    "rating": 4.3,
+    "user_ratings_total": 2134,
+    "price_level": 3,
+    "description": "日式壽喜燒、涮涮鍋吃到飽，肉品新鮮。",
+    "website": "https://www.mo-mo.com.tw/",
+    "types": ["restaurant", "japanese", "hot_pot"],
+    "vicinity": "台北市中山區復興北路 102 號",
+    "geometry": {
+      "location": { "lat": 25.0520, "lng": 121.5440 }
+    },
+    "distance_m": 220,
+    "station": {
+      "name": "南京復興站",
+      "line": "綠線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_nanjing_4",
+    "name": "八方雲集",
+    "rating": 4.0,
+    "user_ratings_total": 567,
+    "price_level": 1,
+    "description": "鍋貼、水餃專門店，外帶方便。",
+    "website": "https://www.8way.com.tw/",
+    "types": ["restaurant", "taiwanese", "dumplings"],
+    "vicinity": "台北市中山區南京東路三段 250 號",
+    "geometry": {
+      "location": { "lat": 25.0522, "lng": 121.5442 }
+    },
+    "distance_m": 170,
+    "station": {
+      "name": "南京復興站",
+      "line": "綠線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_nanjing_5",
+    "name": "Cama Café",
+    "rating": 4.2,
+    "user_ratings_total": 890,
+    "price_level": 1,
+    "description": "連鎖咖啡品牌，外帶咖啡與吐司輕食。",
+    "website": "https://www.camacafe.com/",
+    "types": ["cafe", "coffee"],
+    "vicinity": "台北市中山區南京東路三段 262 號",
+    "geometry": {
+      "location": { "lat": 25.0530, "lng": 121.5450 }
+    },
+    "distance_m": 210,
+    "station": {
+      "name": "南京復興站",
+      "line": "綠線"
+    },
+    "photos": []
+  }
+]
