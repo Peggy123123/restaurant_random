@@ -12,7 +12,7 @@ export default defineConfig({
     server: {
         port: 5173,
     },
-    base: "/",
+    base: "/restaurant_random/",
     build: {
         outDir: "dist",
         assetsDir: "assets",
