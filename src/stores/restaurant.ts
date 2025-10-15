@@ -36,7 +36,7 @@ export const useRestaurantStore = defineStore('restaurant', () => {
    */
   const loadRestaurants = async () => {
     try {
-      const response = await fetch('/data/restaurants.json');
+      const response = await fetch('./data/restaurants.json');
       const data = await response.json();
       restaurants.value = data;
     } catch (error) {

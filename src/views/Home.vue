@@ -201,7 +201,7 @@ onMounted(async () => {
   isLoading.value = true;
   userStore.initFromStorage();
   try {
-    const response = await fetch('/data/stations.json');
+    const response = await fetch('./data/stations.json');
     metroLines.value = await response.json();
     // 從 store 還原先前選擇的線別與站點（避免返回此頁時遺失）
     const savedStation = restaurantStore.selectedStation;
