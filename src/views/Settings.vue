@@ -165,8 +165,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useUserStore } from '@/stores/user';
+import { useRestaurantStore } from '@/stores/restaurant';
 
 /**
  * Emits 定義
@@ -177,23 +178,8 @@ const emit = defineEmits<{
 
 const userStore = useUserStore();
 
-/**
- * 頭銜介面
- */
-interface Title {
-  id: string;
-  name: string;
-  icon: string;
-  description: string;
-}
-
-/**
- * 頭銜資料（示例）
- */
-const titles = ref<Title[]>([
-  // 可以從 userStore 獲取
-  // 這裡暫時使用示例資料
-]);
+// 從 user store 取得頭銜
+const titles = computed(() => userStore.getTitles);
 
 /**
  * 計算屬性：已吃過數量
@@ -214,6 +200,27 @@ const favoritesCount = computed(() => {
  */
 const titlesCount = computed(() => {
   return titles.value.length;
+});
+
+// 初始化時驗證頭銜有效性：目前僅針對板南線（line_bl）
+const restaurantStore = useRestaurantStore();
+onMounted(async () => {
+  await restaurantStore.loadRestaurants();
+  userStore.initFromStorage();
+
+  const lineId = 'line_bl';
+  if (userStore.hasTitle(lineId)) {
+    // 檢查是否每站都有已吃過餐廳
+    const blueLineStations = [
+      '頂埔站','永寧站','土城站','海山站','亞東醫院站','府中站','板橋站','新埔站','江子翠站','龍山寺站','西門站','台北車站','善導寺站','忠孝新生站','忠孝復興站','忠孝敦化站','國父紀念館站','市政府站','永春站','後山埤站','昆陽站','南港站','南港展覽館站'
+    ];
+    const isBlueCompleted = blueLineStations.every((stationName) => {
+      return restaurantStore.restaurants.some(r => r.station.name === stationName && userStore.visitedIds.includes(r.place_id));
+    });
+    if (!isBlueCompleted) {
+      userStore.revokeTitle(lineId);
+    }
+  }
 });
 
 /**

@@ -398,5 +398,425 @@
       "line": "綠線"
     },
     "photos": []
+  },
+  {
+    "place_id": "station_bl01_1",
+    "name": "在地小吃 頂埔店",
+    "rating": 4.1,
+    "user_ratings_total": 120,
+    "price_level": 1,
+    "description": "家常台式小吃，快速方便。",
+    "website": "https://example.com/dingpu-food",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "頂埔站周邊",
+    "geometry": {
+      "location": { "lat": 24.9575, "lng": 121.4286 }
+    },
+    "distance_m": 160,
+    "station": {
+      "name": "頂埔站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl02_1",
+    "name": "三杯雞食堂 永寧店",
+    "rating": 4.2,
+    "user_ratings_total": 210,
+    "price_level": 1,
+    "description": "台式家常飯麵，份量實在。",
+    "website": "https://example.com/yongning-bistro",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "永寧站周邊",
+    "geometry": {
+      "location": { "lat": 24.9654, "lng": 121.4398 }
+    },
+    "distance_m": 180,
+    "station": {
+      "name": "永寧站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl03_1",
+    "name": "土城便當屋",
+    "rating": 4.0,
+    "user_ratings_total": 145,
+    "price_level": 1,
+    "description": "平價便當與熱炒便餐。",
+    "website": "https://example.com/tucheng-bento",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "土城站周邊",
+    "geometry": {
+      "location": { "lat": 24.9748, "lng": 121.4485 }
+    },
+    "distance_m": 170,
+    "station": {
+      "name": "土城站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl04_1",
+    "name": "海山麵館",
+    "rating": 4.1,
+    "user_ratings_total": 132,
+    "price_level": 1,
+    "description": "牛肉麵、水餃與滷味小菜。",
+    "website": "https://example.com/haishan-noodles",
+    "types": ["restaurant", "taiwanese", "noodle"],
+    "vicinity": "海山站周邊",
+    "geometry": {
+      "location": { "lat": 24.9818, "lng": 121.4578 }
+    },
+    "distance_m": 150,
+    "station": {
+      "name": "海山站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl05_1",
+    "name": "亞東輕食館",
+    "rating": 4.0,
+    "user_ratings_total": 98,
+    "price_level": 1,
+    "description": "沙拉、三明治與咖啡輕食。",
+    "website": "https://example.com/yadong-cafe",
+    "types": ["cafe", "light_meal"],
+    "vicinity": "亞東醫院站周邊",
+    "geometry": {
+      "location": { "lat": 24.9926, "lng": 121.4688 }
+    },
+    "distance_m": 140,
+    "station": {
+      "name": "亞東醫院站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl06_1",
+    "name": "府中早午餐",
+    "rating": 4.2,
+    "user_ratings_total": 156,
+    "price_level": 1,
+    "description": "早午餐盤與漢堡、咖啡。",
+    "website": "https://example.com/fuzhong-brunch",
+    "types": ["restaurant", "brunch"],
+    "vicinity": "府中站周邊",
+    "geometry": {
+      "location": { "lat": 25.0041, "lng": 121.4746 }
+    },
+    "distance_m": 180,
+    "station": {
+      "name": "府中站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl07_1",
+    "name": "板橋小館",
+    "rating": 4.3,
+    "user_ratings_total": 240,
+    "price_level": 2,
+    "description": "合菜熱炒與家常菜。",
+    "website": "https://example.com/banqiao-kitchen",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "板橋站周邊",
+    "geometry": {
+      "location": { "lat": 25.0135, "lng": 121.4667 }
+    },
+    "distance_m": 190,
+    "station": {
+      "name": "板橋站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl08_1",
+    "name": "新埔滷味屋",
+    "rating": 4.1,
+    "user_ratings_total": 110,
+    "price_level": 1,
+    "description": "滷味拼盤與麵食小吃。",
+    "website": "https://example.com/xinpu-luwei",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "新埔站周邊",
+    "geometry": {
+      "location": { "lat": 25.0215, "lng": 121.4756 }
+    },
+    "distance_m": 130,
+    "station": {
+      "name": "新埔站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl09_1",
+    "name": "江子翠便當店",
+    "rating": 4.0,
+    "user_ratings_total": 90,
+    "price_level": 1,
+    "description": "經濟實惠便當選擇。",
+    "website": "https://example.com/jiangzicui-bento",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "江子翠站周邊",
+    "geometry": {
+      "location": { "lat": 25.0270, "lng": 121.4880 }
+    },
+    "distance_m": 160,
+    "station": {
+      "name": "江子翠站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl10_1",
+    "name": "龍山寺魯肉飯",
+    "rating": 4.4,
+    "user_ratings_total": 560,
+    "price_level": 1,
+    "description": "傳統滷肉飯與湯品小菜。",
+    "website": "https://example.com/longshan-luroufan",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "龍山寺站周邊",
+    "geometry": {
+      "location": { "lat": 25.0354, "lng": 121.5036 }
+    },
+    "distance_m": 140,
+    "station": {
+      "name": "龍山寺站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl11_1",
+    "name": "西門町小吃集",
+    "rating": 4.2,
+    "user_ratings_total": 430,
+    "price_level": 1,
+    "description": "台式小吃與手搖飲。",
+    "website": "https://example.com/ximen-snacks",
+    "types": ["restaurant", "taiwanese", "street_food"],
+    "vicinity": "西門站周邊",
+    "geometry": {
+      "location": { "lat": 25.0446, "lng": 121.5076 }
+    },
+    "distance_m": 200,
+    "station": {
+      "name": "西門站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl12_1",
+    "name": "台北車站便當城",
+    "rating": 4.0,
+    "user_ratings_total": 800,
+    "price_level": 1,
+    "description": "各式便當與快餐選項。",
+    "website": "https://example.com/taipei-main-food",
+    "types": ["restaurant", "fast_food"],
+    "vicinity": "台北車站周邊",
+    "geometry": {
+      "location": { "lat": 25.0478, "lng": 121.5173 }
+    },
+    "distance_m": 220,
+    "station": {
+      "name": "台北車站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl13_1",
+    "name": "善導寺豆漿店",
+    "rating": 4.3,
+    "user_ratings_total": 520,
+    "price_level": 1,
+    "description": "中式早餐、燒餅油條。",
+    "website": "https://example.com/shandaosi-breakfast",
+    "types": ["restaurant", "breakfast"],
+    "vicinity": "善導寺站周邊",
+    "geometry": {
+      "location": { "lat": 25.0450, "lng": 121.5230 }
+    },
+    "distance_m": 190,
+    "station": {
+      "name": "善導寺站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl14_1",
+    "name": "忠孝新生麵食館",
+    "rating": 4.1,
+    "user_ratings_total": 260,
+    "price_level": 1,
+    "description": "牛肉麵、餛飩麵與小菜。",
+    "website": "https://example.com/xinsheng-noodles",
+    "types": ["restaurant", "noodle"],
+    "vicinity": "忠孝新生站周邊",
+    "geometry": {
+      "location": { "lat": 25.0416, "lng": 121.5303 }
+    },
+    "distance_m": 150,
+    "station": {
+      "name": "忠孝新生站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl15_1",
+    "name": "忠孝復興便當",
+    "rating": 4.0,
+    "user_ratings_total": 210,
+    "price_level": 1,
+    "description": "上班族首選便當飯盒。",
+    "website": "https://example.com/fuxing-bento",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "忠孝復興站周邊",
+    "geometry": {
+      "location": { "lat": 25.0416, "lng": 121.5441 }
+    },
+    "distance_m": 180,
+    "station": {
+      "name": "忠孝復興站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl16_1",
+    "name": "敦化咖啡館",
+    "rating": 4.2,
+    "user_ratings_total": 340,
+    "price_level": 2,
+    "description": "手沖咖啡與甜點。",
+    "website": "https://example.com/dunhua-cafe",
+    "types": ["cafe", "coffee"],
+    "vicinity": "忠孝敦化站周邊",
+    "geometry": {
+      "location": { "lat": 25.0428, "lng": 121.5517 }
+    },
+    "distance_m": 160,
+    "station": {
+      "name": "忠孝敦化站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl19_1",
+    "name": "永春滷肉飯",
+    "rating": 4.1,
+    "user_ratings_total": 180,
+    "price_level": 1,
+    "description": "古早味滷肉飯與湯品。",
+    "website": "https://example.com/yongchun-luroufan",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "永春站周邊",
+    "geometry": {
+      "location": { "lat": 25.0384, "lng": 121.5746 }
+    },
+    "distance_m": 170,
+    "station": {
+      "name": "永春站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl20_1",
+    "name": "後山埤小吃店",
+    "rating": 4.0,
+    "user_ratings_total": 120,
+    "price_level": 1,
+    "description": "家常麵飯與小菜。",
+    "website": "https://example.com/houshanpi-diner",
+    "types": ["restaurant", "taiwanese"],
+    "vicinity": "後山埤站周邊",
+    "geometry": {
+      "location": { "lat": 25.0440, "lng": 121.5796 }
+    },
+    "distance_m": 140,
+    "station": {
+      "name": "後山埤站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl21_1",
+    "name": "昆陽早午餐",
+    "rating": 4.1,
+    "user_ratings_total": 150,
+    "price_level": 1,
+    "description": "吐司、蛋餅與咖啡。",
+    "website": "https://example.com/kunyang-brunch",
+    "types": ["restaurant", "brunch"],
+    "vicinity": "昆陽站周邊",
+    "geometry": {
+      "location": { "lat": 25.0506, "lng": 121.5833 }
+    },
+    "distance_m": 180,
+    "station": {
+      "name": "昆陽站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl22_1",
+    "name": "南港便當舖",
+    "rating": 4.0,
+    "user_ratings_total": 210,
+    "price_level": 1,
+    "description": "外帶便當、快餐選擇。",
+    "website": "https://example.com/nangang-bento",
+    "types": ["restaurant", "fast_food"],
+    "vicinity": "南港站周邊",
+    "geometry": {
+      "location": { "lat": 25.0528, "lng": 121.5950 }
+    },
+    "distance_m": 200,
+    "station": {
+      "name": "南港站",
+      "line": "藍線"
+    },
+    "photos": []
+  },
+  {
+    "place_id": "station_bl23_1",
+    "name": "展館輕食吧",
+    "rating": 4.1,
+    "user_ratings_total": 175,
+    "price_level": 2,
+    "description": "沙拉、帕尼尼與咖啡。",
+    "website": "https://example.com/expo-lightmeal",
+    "types": ["cafe", "light_meal"],
+    "vicinity": "南港展覽館站周邊",
+    "geometry": {
+      "location": { "lat": 25.0706, "lng": 121.6190 }
+    },
+    "distance_m": 150,
+    "station": {
+      "name": "南港展覽館站",
+      "line": "藍線"
+    },
+    "photos": []
   }
 ]

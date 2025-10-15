@@ -4,20 +4,33 @@
       <!-- Main Content -->
       <main class="px-4">
         <!-- 大富翁動畫區域 -->
-        <div class="mb-6 flex aspect-[16/9] w-full items-center justify-center rounded-[28px] bg-white shadow-lg">
-          <div class="text-center">
-            <img
-              v-if="isAnimating"
-              alt="Monopoly animation"
-              class="h-24 w-auto mx-auto"
-              src=""
-            />
-            <div v-else class="text-6xl mb-2">🎲</div>
-            <p class="font-bold text-orange-theme-500 mt-4">
-              {{ isAnimating ? '尋找下一個美食站點...' : '準備好探索美食了嗎？' }}
-            </p>
+        <div class="relative mb-4 flex aspect-[16/9] w-full items-center justify-center rounded-[28px] bg-white shadow-lg">
+          <video
+            alt="Monopoly animation"
+            class="w-full h-auto object-cover overflow-hidden"
+            :src="currentHomeVideo"
+            :loop="homeVideoLoop"
+            ref="homeVideoRef"
+            @ended="handleHomeVideoEnded"
+            autoplay
+            muted
+            playsinline
+          />
+          <div
+            v-if="stationToastVisible"
+            class="pointer-events-none absolute left-1/2 top-20 -translate-x-1/2 rounded-lg bg-orange-theme-500/70 px-4 py-2 text-sm font-bold text-white shadow-lg border-1 border-black-500 ring-2 ring-offset-2 ring-offset-white"
+          >
+            前往 <span class="font-bold">{{ selectedStation?.name }}</span>！
           </div>
         </div>
+
+        <p class="font-bold text-orange-theme-500 mb-1 text-center">
+          {{ '準備好探索美食了嗎？' }}
+        </p>
+
+        <p class="mb-2 text-center text-gray-theme-400 text-xs">
+          來場美食大富翁之旅，邊探索美食邊收集台北捷運站點吧！
+        </p>
         <div class="w-full flex justify-center mb-4">
           <button
             class="text-center w-full text-sm font-bold transition-transform flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -39,37 +52,37 @@
           
         </div>
         <!-- 選擇捷運線 -->
-        <div class="mb-4">
-          <h2 class="mb-3 text-xl font-bold text-orange-theme-500">選擇捷運線</h2>
-          <div class="grid grid-cols-3 gap-3">
+        <div>
+          <h2 class="font-bold text-orange-theme-500">選擇捷運線</h2>
+          <div class="flex space-x-2 overflow-x-auto py-2 px-2 scroll-smooth">
             <button
               v-for="line in metroLines"
               :key="line.id"
               @click="selectLine(line)"
+              class="shrink-0 rounded-full px-5 py-2.5 text-sm font-bold transition-transform"
               :class="[
-                'flex flex-col items-center gap-2 rounded-xl p-3 text-white shadow-lg transition-transform',
-                selectedLineId === line.id ? 'ring-2 ring-black-theme-500 ring-offset-2 ring-offset-orange-theme-100' : '',
-                line.backgroundColor
+                selectedLineId === line.id
+                  ? (line.backgroundColor || 'bg-gray-500') + ' text-white shadow-lg ring-2 ring-black-theme-500 ring-offset-2 ring-offset-orange-theme-100'
+                  : (line.backgroundColor || 'bg-gray-500') + ' text-white/90'
               ]"
             >
-              <div class="h-2 w-full rounded-full bg-white/50"></div>
-              <span class="font-bold text-sm">{{ line.name }}</span>
+              {{ line.name }}
             </button>
           </div>
         </div>
         <!-- 選擇捷運站 -->
-        <div class="mb-4">
-          <h2 class="text-xl font-bold text-orange-theme-500">選擇捷運站</h2>
-          <div v-if="currentStations.length > 0" ref="stationScrollContainer" class="flex space-x-3 overflow-x-auto pb-4 scroll-smooth">
+        <div class="mb-2">
+          <h2 class="font-bold text-orange-theme-500">選擇捷運站</h2>
+          <div v-if="currentStations.length > 0" ref="stationScrollContainer" class="flex space-x-1 overflow-x-auto py-2 px-2 scroll-smooth">
             <button
               v-for="station in currentStations"
               :key="station.id"
               :ref="(el) => setStationRef(el, station.id)"
               @click="selectStation(station)"
-              class="shrink-0 rounded-full px-5 py-2.5 text-sm font-bold transition-transform"
+              class="shrink-0 rounded-full px-3 py-1.5 text-sm font-bold transition-transform"
               :class="[
                 selectedStation?.id === station.id
-                  ? (metroLines.find(line => line.id === selectedLineId)?.backgroundColor || 'bg-gray-500') + ' text-white shadow-lg'
+                  ? (metroLines.find(line => line.id === selectedLineId)?.backgroundColor || 'bg-gray-500') + ' text-white shadow-lg ring-2 ring-black-theme-500 ring-offset-2 ring-offset-orange-theme-100'
                   : 'bg-white/80 text-gray-theme-500'
               ]"
             >
@@ -81,7 +94,7 @@
           </p>
         </div>
         <!-- 進階篩選 -->
-        <div class="mb-4 flex items-center justify-center">
+        <div class="mb-2 flex items-center justify-center">
           <button
             @click="showFilterModal = true"
             class="text-sm font-bold text-orange-theme-500 transition-transform flex items-center justify-center gap-2"
@@ -102,12 +115,12 @@
           <p class="text-gray-400 text-sm">試試調整篩選條件</p>
         </div>
         <!-- 隨機推薦按鈕 -->
-        <div class="flex justify-center py-6">
+        <div class="flex justify-center py-2">
           <button
             v-if="!currentRecommendation"
             @click="handleRandomRecommend"
             :disabled="isLoading || isAnimating || !selectedStation"
-            class="flex transform items-center gap-3 rounded-full bg-gradient-to-r from-orange-theme-400 to-orange-theme-500 px-10 py-3 font-bold text-white shadow-lg transition-transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full flex transform items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-orange-theme-400 to-orange-theme-500 px-10 py-3 font-bold text-white shadow-lg transition-transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span class="text-lg">隨機推薦</span>
           </button>
@@ -140,6 +153,8 @@ import { useUserStore } from '@/stores/user';
 import RestaurantCard from '@/components/RestaurantCard.vue';
 import FilterModal from '@/components/FilterModal.vue';
 import type { Station, MetroLine, FilterOptions } from '@/types';
+import homeStandVideo from '@/assets/videos/video-home-standby.mp4';
+import homeWalkVideo from '@/assets/videos/video-home-walk.mp4';
 
 const restaurantStore = useRestaurantStore();
 const userStore = useUserStore();
@@ -153,6 +168,26 @@ const isLoading = ref(false);
 const isAnimating = ref(false);
 const noResults = ref(false);
 const hasLocation = ref(false);
+const currentHomeVideo = ref<string>(homeStandVideo);
+const isWalkPlaying = ref<boolean>(false);
+const homeVideoRef = ref<HTMLVideoElement | null>(null);
+const homeVideoLoop = computed(() => !isWalkPlaying.value);
+
+// 顯示「前往站點」提示 4 秒
+const stationToastVisible = ref(false);
+let stationToastTimer: number | null = null;
+const showStationToast = () => {
+  if (!selectedStation.value) return;
+  if (stationToastTimer) {
+    clearTimeout(stationToastTimer);
+    stationToastTimer = null;
+  }
+  stationToastVisible.value = true;
+  stationToastTimer = window.setTimeout(() => {
+    stationToastVisible.value = false;
+    stationToastTimer = null;
+  }, 5000);
+};
 
 // 滾動相關
 const stationScrollContainer = ref<HTMLElement | null>(null);
@@ -240,6 +275,8 @@ const selectStation = (station: Station) => {
   restaurantStore.resetRecommendations();
   noResults.value = false;
   hasLocation.value = false; // 重置定位狀態
+  playWalkOnce();
+  showStationToast();
   
   // 滾動到選中的站點
   nextTick(() => {
@@ -342,6 +379,10 @@ const getCurrentLocation = () => {
         
         // 標記已取得位置
         hasLocation.value = true;
+        // 播放走路影片一次
+        playWalkOnce();
+        // 顯示前往站點提示
+        showStationToast();
         
         // 滾動到選中的站點
         nextTick(() => {
@@ -378,6 +419,46 @@ const getCurrentLocation = () => {
       maximumAge: 300000 // 5分鐘快取
     }
   );
+};
+
+// 播放走路影片一次，結束後切回待機影片
+const playWalkOnce = () => {
+  isWalkPlaying.value = true;
+  currentHomeVideo.value = homeWalkVideo;
+  nextTick(() => {
+    const video = homeVideoRef.value;
+    if (!video) return;
+    try {
+      video.currentTime = 0;
+      // autoplay + muted 應可自動播放；仍嘗試呼叫 play() 以確保
+      const maybePromise = video.play();
+      if (maybePromise && typeof maybePromise.then === 'function') {
+        maybePromise.catch(() => {});
+      }
+    } catch {
+      // 忽略播放錯誤（如瀏覽器限制）
+    }
+  });
+};
+
+// 影片播放結束：切回待機循環影片
+const handleHomeVideoEnded = () => {
+  if (!isWalkPlaying.value) return;
+  isWalkPlaying.value = false;
+  currentHomeVideo.value = homeStandVideo;
+  nextTick(() => {
+    const video = homeVideoRef.value;
+    if (!video) return;
+    try {
+      video.currentTime = 0;
+      const maybePromise = video.play();
+      if (maybePromise && typeof maybePromise.then === 'function') {
+        maybePromise.catch(() => {});
+      }
+    } catch {
+      // 忽略播放錯誤
+    }
+  });
 };
 
 // 處理隨機推薦

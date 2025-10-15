@@ -152,6 +152,15 @@ export const useRestaurantStore = defineStore('restaurant', () => {
         recommendedIds.value.push(recommendation.place_id);
       }
 
+      // 記錄到使用者的推薦歷史
+      try {
+        const userStore = useUserStore();
+        userStore.addHistory(recommendation.place_id);
+      } catch (e) {
+        // 靜默失敗以避免影響推薦流程
+        // console.warn('寫入歷史失敗', e);
+      }
+
       return recommendation;
     }
 

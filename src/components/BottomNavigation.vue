@@ -66,6 +66,26 @@
         </div>
         <span class="text-xs font-semibold">收藏</span>
       </button>
+
+      <!-- 歷史頁（最右邊） -->
+      <button
+        @click="navigateTo('history')"
+        :class="[
+          'flex-1 flex flex-col items-center justify-center gap-1 py-3 border-b-2 transition-all duration-200',
+          getNavClasses('history')
+        ]"
+      >
+        <div class="relative">
+          <font-awesome-icon
+            :icon="['fas', 'clock-rotate-left']"
+            class="w-6 h-6 text-xl"
+          />
+          <span v-if="historyCount > 0" class="absolute -top-3 -right-4 min-w-5 h-5 px-1 inline-flex items-center justify-center text-[10px] font-bold rounded-full bg-pink-600 text-white shadow">
+            {{ historyCount }}
+          </span>
+        </div>
+        <span class="text-xs font-semibold">歷史</span>
+      </button>
     </div>
   </nav>
 </template>
@@ -77,7 +97,7 @@ import { useUserStore } from '@/stores/user';
  * Props 定義
  */
 interface Props {
-  currentPage: 'home' | 'map' | 'monopoly' | 'favorites';
+  currentPage: 'home' | 'map' | 'monopoly' | 'favorites' | 'history';
 }
 
 const props = defineProps<Props>();
@@ -95,6 +115,11 @@ const userStore = useUserStore();
  * 收藏+已吃過 總數
  */
 const combinedCount = computed(() => userStore.favoriteIds.length + userStore.visitedIds.length);
+
+/**
+ * 歷史 總數
+ */
+const historyCount = computed(() => userStore.historyIds.length);
 
 /**
  * 導航到指定頁面
