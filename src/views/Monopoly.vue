@@ -1,5 +1,5 @@
 <template>
-  <div class="monopoly-page min-h-screen bg-slate-50">
+  <div class="monopoly-page bg-slate-50">
     <div class="max-w-lg mx-auto px-4 py-6">
       <h2 class="text-2xl font-bold text-slate-900 mb-6 text-center">台北捷運美食地圖</h2>
       
@@ -122,38 +122,18 @@ const selectedStationInfo = ref<{
   favoriteCount: number;
 } | null>(null);
 
-// 藍線站點資料（從 SVG 中提取的站點 ID）
-const blueLineStations = ref([
-  { id: 'BL01', name: '頂埔站' },
-  { id: 'BL02', name: '永寧站' },
-  { id: 'BL03', name: '土城站' },
-  { id: 'BL04', name: '海山站' },
-  { id: 'BL05', name: '亞東醫院站' },
-  { id: 'BL06', name: '府中站' },
-  { id: 'BL07', name: '板橋站' },
-  { id: 'BL08', name: '新埔站' },
-  { id: 'BL09', name: '江子翠站' },
-  { id: 'BL10', name: '龍山寺站' },
-  { id: 'BL11', name: '西門站' },
-  { id: 'BL12', name: '台北車站' },
-  { id: 'BL13', name: '善導寺站' },
-  { id: 'BL14', name: '忠孝新生站' },
-  { id: 'BL15', name: '忠孝復興站' },
-  { id: 'BL16', name: '忠孝敦化站' },
-  { id: 'BL17', name: '國父紀念館站' },
-  { id: 'BL18', name: '市政府站' },
-  { id: 'BL19', name: '永春站' },
-  { id: 'BL20', name: '後山埤站' },
-  { id: 'BL21', name: '昆陽站' },
-  { id: 'BL22', name: '南港站' },
-  { id: 'BL23', name: '南港展覽館站' },
-]);
+// 從 stations.json 載入的所有線與站點
+type SimpleStation = { id: string; name: string };
+type SimpleLine = { id: string; name: string; stations: SimpleStation[] };
+const lines = ref<SimpleLine[]>([]);
+// 所有站點（供 SVG 綁定與查詢）
+const allStations = ref<SimpleStation[]>([]);
 
 // 站點路徑資料改由內嵌 SVG 的 id 綁定，不再手動維護 path
 
 // 輔助：判斷站點是否「已吃過」
 const isStationVisited = (stationId: string): boolean => {
-  const station = blueLineStations.value.find(s => s.id === stationId);
+  const station = allStations.value.find(s => s.id === stationId);
   if (!station) return false;
   return restaurantStore.restaurants.some(restaurant => {
     return (
@@ -165,7 +145,7 @@ const isStationVisited = (stationId: string): boolean => {
 
 // 輔助：判斷站點是否「已收藏」
 const isStationFavorite = (stationId: string): boolean => {
-  const station = blueLineStations.value.find(s => s.id === stationId);
+  const station = allStations.value.find(s => s.id === stationId);
   if (!station) return false;
   return restaurantStore.restaurants.some(restaurant => {
     return (
@@ -175,15 +155,46 @@ const isStationFavorite = (stationId: string): boolean => {
   });
 };
 
-// 獲取站點顏色（優先：已吃過→深藍，次之：已收藏→淺藍，否則預設）
+// 由站點 id 反查線別 id（如 blue_line, red_line...）
+const getLineIdByStationId = (stationId: string): string | null => {
+  const line = lines.value.find(l => l.stations.some(s => s.id === stationId));
+  return line ? line.id : null;
+};
+
+// 依線別取得對應 CSS 變數色碼（優先：已吃過→visited，其次：已收藏→favorite，否則預設灰藍）
 const getStationColor = (stationId: string): string => {
-  if (isStationVisited(stationId)) {
-    return '#1E3A8A'; // 深藍（有光暈）
+  const lineId = getLineIdByStationId(stationId);
+  const visited = isStationVisited(stationId);
+  const favorite = isStationFavorite(stationId);
+
+  if (!lineId) {
+    // 找不到線別時的保底色
+    if (visited) return '#1E3A8A';
+    if (favorite) return '#BFDBFE';
+    return '#C3CDFF';
   }
-  if (isStationFavorite(stationId)) {
-    return '#BFDBFE'; // 淺藍（無光暈）
+
+  // 映射線別到對應 CSS 變數前綴
+  const lineKeyMap: Record<string, string> = {
+    blue_line: 'blue',
+    red_line: 'red',
+    green_line: 'green',
+    orange_line: 'orange',
+    brown_line: 'brown',
+    yellow_line: 'yellow',
+  };
+
+  const key = lineKeyMap[lineId];
+  if (!key) {
+    if (visited) return '#1E3A8A';
+    if (favorite) return '#BFDBFE';
+    return '#C3CDFF';
   }
-  return '#C3CDFF'; // 預設淺藍
+
+  if (visited) return getComputedStyle(document.documentElement).getPropertyValue(`--mrt-${key}-visited`).trim() || '#000000';
+  if (favorite) return getComputedStyle(document.documentElement).getPropertyValue(`--mrt-${key}-favorite`).trim() || '#999999';
+  // 未標記狀態時，可維持原本預設淺藍，避免過度干預底圖
+  return '#C3CDFF';
 };
 
 // 選中站點
@@ -364,27 +375,39 @@ const clampTranslate = () => {
   mapSvg.value.style.transform = `translate(${translateX.value}px, ${translateY.value}px) scale(${scale.value})`;
 };
 
-// 計算已點亮的站點數量
+// 計算已點亮的站點數量（全線總和，去重）
 const visitedStationsCount = computed(() => {
-  return blueLineStations.value.filter(station => {
-    return restaurantStore.restaurants.some(restaurant => {
+  const visitedNames = new Set<string>();
+  allStations.value.forEach(station => {
+    const hasVisited = restaurantStore.restaurants.some(restaurant => {
       return restaurant.station.name === station.name && userStore.visitedIds.includes(restaurant.place_id);
     });
-  }).length;
+    if (hasVisited) visitedNames.add(station.name);
+  });
+  return visitedNames.size;
 });
 
-// 計算完成的線路數量（目前只有藍線）
-const completedLinesCount = computed(() => {
-  // 嚴格完成條件：藍線每站皆有「已吃過」餐廳
-  return isBlueLineCompleted.value ? 1 : 0;
-});
-
-// 是否已完成藍線（板南線）：每站至少有一間「已吃過」餐廳
-const isBlueLineCompleted = computed(() => {
-  return blueLineStations.value.every(station => {
+// 某條線是否已完成：每站至少有一間「已吃過」
+const isLineCompleted = (line: SimpleLine): boolean => {
+  return line.stations.every(station => {
     return restaurantStore.restaurants.some(r => r.station.name === station.name && userStore.visitedIds.includes(r.place_id));
   });
+};
+
+// 計算完成的線路數量（所有線）
+const completedLinesCount = computed(() => {
+  return lines.value.filter(line => isLineCompleted(line)).length;
 });
+
+// 站點線別 id -> 頭銜 id 對應
+const lineIdToTitleId: Record<string, string> = {
+  blue_line: 'line_bl',
+  red_line: 'line_r',
+  green_line: 'line_g',
+  orange_line: 'line_o',
+  brown_line: 'line_br',
+  yellow_line: 'line_y',
+};
 
 // 頭銜彈窗狀態
 const showTitleModal = ref(false);
@@ -401,12 +424,15 @@ const goToSettings = () => {
   showTitleModal.value = false;
 };
 
-// 驗證板南線頭銜有效性（每站皆需有已吃過餐廳）
-const validateBlueLineTitle = () => {
-  const lineId = 'line_bl';
-  if (userStore.hasTitle(lineId) && !isBlueLineCompleted.value) {
-    userStore.revokeTitle(lineId);
-  }
+// 驗證所有線之頭銜有效性（每站皆需有已吃過餐廳）
+const validateAllLineTitles = () => {
+  lines.value.forEach(line => {
+    const titleId = lineIdToTitleId[line.id];
+    if (!titleId) return;
+    if (userStore.hasTitle(titleId) && !isLineCompleted(line)) {
+      userStore.revokeTitle(titleId);
+    }
+  });
 };
 
 onMounted(async () => {
@@ -415,67 +441,42 @@ onMounted(async () => {
   // 初始化用戶資料（如果沒有資料的話）
   userStore.initFromStorage();
 
-  // 為了測試，添加一些示例資料
-  if (userStore.visitedIds.length === 0) {
-    // 添加一些已吃過的餐廳（對應象山站、國父紀念館站、市政府站）
-    const testVisitedIds = [
-      'station_xiangshan_1', // 一蘭拉麵 信義店
-      'station_xiangshan_2', // 鼎泰豐 信義店
-      'station_memorial_1',  // 添好運點心專門店
-      'station_memorial_2',  // 春水堂人文茶館
-      'station_cityh_1',     // 鼎王麻辣鍋
-    ];
-
-    testVisitedIds.forEach(id => userStore.addVisited(id));
-  }
-
-  if (userStore.favoriteIds.length === 0) {
-    // 添加一些收藏的餐廳
-    const testFavoriteIds = [
-      'station_xiangshan_1', // 一蘭拉麵 信義店
-      'station_memorial_1',  // 添好運點心專門店
-      'station_cityh_1',     // 鼎王麻辣鍋
-    ];
-
-    testFavoriteIds.forEach(id => userStore.addFavorite(id));
-  }
-
-  // 進入頁面時：若已完成整條板南線且尚未有該頭銜，頒發並顯示彈窗
-  const lineId = 'line_bl';
-  if (isBlueLineCompleted.value && !userStore.hasTitle(lineId)) {
-    const title = userStore.getLineTitle(lineId);
-    if (title) {
-      userStore.grantTitleByLine(lineId);
-      modalTitleName.value = title.name;
-      modalTitleIcon.value = title.icon;
-      showTitleModal.value = true;
-    }
-  }
-
-  // 進入頁面時：驗證已擁有頭銜是否仍有效（每站皆有已吃過）
-  validateBlueLineTitle();
+  // 後續會在載入線資料後進行頭銜檢查與頒發
 
   // 動態監聽：使用者「已吃過」清單或餐廳資料變化時，重新驗證頭銜
   watch(
     () => userStore.visitedIds.slice(),
     () => {
-      validateBlueLineTitle();
+      validateAllLineTitles();
       applyStationsVisual();
     }
   );
+
   watch(
     () => restaurantStore.restaurants.length,
     () => {
-      validateBlueLineTitle();
+      validateAllLineTitles();
       applyStationsVisual();
     }
   );
+
   watch(
     () => userStore.favoriteIds.slice(),
     () => applyStationsVisual()
   );
 
-  // 內嵌 SVG 地圖並綁定互動
+  // 載入所有線站點資料（供地圖綁定與統計）
+  try {
+    const resp = await fetch('data/stations.json');
+    const rawLines: Array<{ id: string; name: string; stations: Array<{ id: string; name: string }> }> = await resp.json();
+    lines.value = rawLines.map(l => ({ id: l.id, name: l.name, stations: l.stations.map(s => ({ id: s.id, name: s.name })) }));
+    allStations.value = lines.value.flatMap(line => line.stations.map(s => ({ id: s.id, name: s.name })));
+  } catch (e) {
+    lines.value = [];
+    allStations.value = [];
+  }
+
+  // 內嵌 SVG 地圖並綁定互動（需在 allStations 準備好後）
   await nextTick();
   if (mapHost.value) {
     mapHost.value.innerHTML = mapSvgContent as unknown as string;
@@ -505,6 +506,24 @@ onMounted(async () => {
       }
     }
   }
+  // 載入地圖後，檢查並可能頒發頭銜（一次顯示一個）
+  for (const line of lines.value) {
+    const titleId = lineIdToTitleId[line.id];
+    if (!titleId) continue;
+    if (isLineCompleted(line) && !userStore.hasTitle(titleId)) {
+      const title = userStore.getLineTitle(titleId);
+      if (title) {
+        userStore.grantTitleByLine(titleId);
+        modalTitleName.value = title.name;
+        modalTitleIcon.value = title.icon;
+        showTitleModal.value = true;
+        break; // 一次僅顯示一個
+      }
+    }
+  }
+
+  // 進入頁面時：驗證已擁有頭銜是否仍有效
+  validateAllLineTitles();
 });
 
 // 若 SVG 尚無對應的光暈濾鏡，則動態加入
@@ -525,25 +544,47 @@ const ensureGlowFilter = (svgEl: SVGSVGElement) => {
 
   const blur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
   blur.setAttribute('in', 'SourceGraphic');
-  blur.setAttribute('stdDeviation', '3');
+  blur.setAttribute('stdDeviation', '4');
   blur.setAttribute('result', 'blur');
+
+  // 持續閃爍的光暈：透過動畫改變模糊半徑
+  const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+  animate.setAttribute('attributeName', 'stdDeviation');
+  animate.setAttribute('values', '6;18;6');
+  animate.setAttribute('dur', '1.6s');
+  animate.setAttribute('repeatCount', 'indefinite');
+  blur.appendChild(animate);
+
+  // 將模糊層著色為金黃色
+  const flood = document.createElementNS('http://www.w3.org/2000/svg', 'feFlood');
+  flood.setAttribute('flood-color', '#FFD54A');
+  flood.setAttribute('flood-opacity', '1');
+  flood.setAttribute('result', 'gold');
+
+  const composite = document.createElementNS('http://www.w3.org/2000/svg', 'feComposite');
+  composite.setAttribute('in', 'gold');
+  composite.setAttribute('in2', 'blur');
+  composite.setAttribute('operator', 'in');
+  composite.setAttribute('result', 'glow');
 
   const merge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
   const mergeNode1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
-  mergeNode1.setAttribute('in', 'blur');
+  mergeNode1.setAttribute('in', 'glow');
   const mergeNode2 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
   mergeNode2.setAttribute('in', 'SourceGraphic');
   merge.appendChild(mergeNode1);
   merge.appendChild(mergeNode2);
 
   filter.appendChild(blur);
+  filter.appendChild(flood);
+  filter.appendChild(composite);
   filter.appendChild(merge);
   defs.appendChild(filter);
 };
 
-// 依 BL01–BL23 綁定互動
+// 依所有線站點 ID 綁定互動
 const bindStationInteractions = (svgEl: SVGSVGElement) => {
-  blueLineStations.value.forEach(station => {
+  allStations.value.forEach(station => {
     const node = svgEl.querySelector(`#${station.id}`) as SVGGElement | SVGElement | null;
     if (!node) return;
     (node as SVGElement).style.cursor = 'pointer';
@@ -554,23 +595,29 @@ const bindStationInteractions = (svgEl: SVGSVGElement) => {
   });
 };
 
-// 依據 visited/favorite 更新各站視覺
+// 依據 visited/favorite 更新各站視覺（全線）
 const applyStationsVisual = () => {
   if (!mapSvg.value) return;
-  blueLineStations.value.forEach(station => {
+  allStations.value.forEach(station => {
     const node = mapSvg.value!.querySelector(`#${station.id}`) as SVGGElement | SVGElement | null;
     if (!node) return;
     const isVisited = isStationVisited(station.id);
+    const isFavorite = isStationFavorite(station.id);
     const color = getStationColor(station.id);
 
-    // 對該站群組內原白底 .st2 元素著色，若沒有則直接塗該節點
-    const targets = (node as SVGElement).querySelectorAll<SVGElement>('.st2');
-    if (targets.length > 0) {
-      targets.forEach(el => {
-        // 以行內 style 提升優先權，避免被 <style>.st2 覆蓋
-        (el as SVGElement).style.setProperty('fill', color);
+    // 新邏輯：直接尋找該站節點下的 circle，移除 cls-29 並設定 fill
+    const circles = (node as SVGElement).querySelectorAll('circle');
+    if (circles.length > 0) {
+      circles.forEach(circle => {
+        if (isVisited || isFavorite) {
+          circle.classList.remove('cls-29');
+        } else {
+          circle.classList.add('cls-29');
+        }
+        circle.setAttribute('fill', color);
       });
     } else {
+      // 若沒有 circle，退回以節點著色（保險）
       (node as SVGElement).style.setProperty('fill', color);
     }
 

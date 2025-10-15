@@ -97,7 +97,7 @@ import { useUserStore } from '@/stores/user';
  * Props 定義
  */
 interface Props {
-  currentPage: 'home' | 'map' | 'monopoly' | 'favorites' | 'history';
+  currentPage: 'home' | 'map' | 'monopoly' | 'favorites' | 'history' | 'settings';
 }
 
 const props = defineProps<Props>();

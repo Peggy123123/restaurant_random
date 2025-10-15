@@ -15,7 +15,6 @@
 
     <!-- Bottom Navigation -->
     <BottomNavigation
-      v-if="currentPage !== 'settings'"
       :currentPage="currentPage"
       @navigate="navigateTo"
     />

@@ -3,12 +3,27 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* MRT line colors for station states */
+    --mrt-blue-visited: #1E3A8A;   /* 深藍 */
+    --mrt-blue-favorite: #BFDBFE;  /* 淺藍 */
+    --mrt-red-visited:rgb(177, 20, 23);    /* 紅 */
+    --mrt-red-favorite: #FECACA;   /* 淺紅 */
+    --mrt-green-visited:rgb(3, 109, 53);  /* 綠 */
+    --mrt-green-favorite:rgb(78, 210, 124); /* 淺綠 */
+    --mrt-orange-visited: #f5a623; /* 橘 */
+    --mrt-orange-favorite: #FED7AA;/* 淺橘 */
+    --mrt-brown-visited: #c4a287;  /* 棕 */
+    --mrt-brown-favorite: #EADBC8; /* 淺棕 */
+    --mrt-yellow-visited: #ffd700; /* 黃 */
+    --mrt-yellow-favorite: #FEF08A;/* 淺黃 */
+  }
   body {
     margin: 0;
     font-family: 'Noto Serif',sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    min-height: max(884px, 100dvh);
+    /* min-height: max(884px, 100dvh); */
     background-color: #fff9f2;
   }
 

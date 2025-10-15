@@ -3,22 +3,36 @@
     <div class="flex-grow">
       <!-- Main Content -->
       <main class="px-4">
-        <!-- 大富翁動畫區域 -->
+        <!-- 大富翁動畫區域：雙影片疊層交叉淡入 -->
         <div class="relative mb-4 flex aspect-[16/9] w-full items-center justify-center rounded-[28px] bg-white shadow-lg">
+          <!-- Standby 常駐循環影片 -->
           <video
-            alt="Monopoly animation"
-            class="w-full h-auto object-cover overflow-hidden"
-            :src="currentHomeVideo"
-            :loop="homeVideoLoop"
-            ref="homeVideoRef"
-            @ended="handleHomeVideoEnded"
+            ref="standbyRef"
+            class="absolute inset-0 w-full h-full object-cover object-bottom rounded-[28px] transition-opacity duration-300"
+            :src="homeStandVideo"
+            preload="auto"
             autoplay
             muted
             playsinline
+            loop
+            :style="{ opacity: isWalkPlaying ? 0 : 1 }"
+            alt="Monopoly standby"
+          />
+          <!-- Walk 播放一次影片 -->
+          <video
+            ref="walkRef"
+            class="absolute inset-0 w-full h-full object-cover object-bottom rounded-[28px] transition-opacity duration-300"
+            :src="homeWalkVideo"
+            preload="auto"
+            muted
+            playsinline
+            :style="{ opacity: isWalkPlaying ? 1 : 0 }"
+            @ended="onWalkEnded"
+            alt="Monopoly walking"
           />
           <div
             v-if="stationToastVisible"
-            class="pointer-events-none absolute left-1/2 top-20 -translate-x-1/2 rounded-lg bg-orange-theme-500/70 px-4 py-2 text-sm font-bold text-white shadow-lg border-1 border-black-500 ring-2 ring-offset-2 ring-offset-white"
+            class="pointer-events-none absolute left-1/2 top-8 -translate-x-1/2 rounded-lg bg-orange-theme-500 px-4 py-1 text-sm font-bold text-white shadow-lg border border-black-theme-500"
           >
             前往 <span class="font-bold">{{ selectedStation?.name }}</span>！
           </div>
@@ -168,10 +182,9 @@ const isLoading = ref(false);
 const isAnimating = ref(false);
 const noResults = ref(false);
 const hasLocation = ref(false);
-const currentHomeVideo = ref<string>(homeStandVideo);
 const isWalkPlaying = ref<boolean>(false);
-const homeVideoRef = ref<HTMLVideoElement | null>(null);
-const homeVideoLoop = computed(() => !isWalkPlaying.value);
+const standbyRef = ref<HTMLVideoElement | null>(null);
+const walkRef = ref<HTMLVideoElement | null>(null);
 
 // 顯示「前往站點」提示 4 秒
 const stationToastVisible = ref(false);
@@ -257,6 +270,22 @@ onMounted(async () => {
   }
   await restaurantStore.loadRestaurants();
   isLoading.value = false;
+  // 預載兩支影片並喚醒首幀，降低切換閃爍
+  nextTick(() => {
+    try {
+      standbyRef.value?.load();
+      walkRef.value?.load();
+      if (standbyRef.value) {
+        standbyRef.value.currentTime = 0.01;
+        const p = standbyRef.value.play();
+        // 若瀏覽器阻擋自動播放，忽略錯誤
+        if (p && typeof (p as any).then === 'function') (p as any).catch(() => {});
+      }
+      if (walkRef.value) {
+        walkRef.value.currentTime = 0.01;
+      }
+    } catch {}
+  });
 });
 
 // 選擇線別
@@ -421,44 +450,23 @@ const getCurrentLocation = () => {
   );
 };
 
-// 播放走路影片一次，結束後切回待機影片
+// 播放走路影片一次，結束後淡回待機
 const playWalkOnce = () => {
+  if (!walkRef.value) return;
   isWalkPlaying.value = true;
-  currentHomeVideo.value = homeWalkVideo;
   nextTick(() => {
-    const video = homeVideoRef.value;
-    if (!video) return;
     try {
-      video.currentTime = 0;
-      // autoplay + muted 應可自動播放；仍嘗試呼叫 play() 以確保
-      const maybePromise = video.play();
-      if (maybePromise && typeof maybePromise.then === 'function') {
-        maybePromise.catch(() => {});
-      }
-    } catch {
-      // 忽略播放錯誤（如瀏覽器限制）
-    }
+      walkRef.value!.currentTime = 0;
+      const p = walkRef.value!.play();
+      if (p && typeof (p as any).then === 'function') (p as any).catch(() => {});
+    } catch {}
   });
 };
 
-// 影片播放結束：切回待機循環影片
-const handleHomeVideoEnded = () => {
-  if (!isWalkPlaying.value) return;
+const onWalkEnded = () => {
   isWalkPlaying.value = false;
-  currentHomeVideo.value = homeStandVideo;
-  nextTick(() => {
-    const video = homeVideoRef.value;
-    if (!video) return;
-    try {
-      video.currentTime = 0;
-      const maybePromise = video.play();
-      if (maybePromise && typeof maybePromise.then === 'function') {
-        maybePromise.catch(() => {});
-      }
-    } catch {
-      // 忽略播放錯誤
-    }
-  });
+  // 可選：暫停 walk，節省資源
+  try { walkRef.value?.pause(); } catch {}
 };
 
 // 處理隨機推薦
