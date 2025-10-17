@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import AppHeader from './components/AppHeader.vue';
 import BottomNavigation from './components/BottomNavigation.vue';
 import Home from './views/Home.vue';
@@ -63,6 +63,22 @@ const navigateToSettings = () => {
 const goBackFromSettings = () => {
   currentPage.value = previousPage.value;
 };
+
+/**
+ * 滾動到頁面頂部
+ */
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
+};
+
+// 監聽頁面變化，切換頁面時滾動到頂部
+watch(currentPage, () => {
+  scrollToTop();
+});
 
 // 監聽從內頁請求導向設定頁
 onMounted(() => {

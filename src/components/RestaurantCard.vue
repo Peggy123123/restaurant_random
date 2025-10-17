@@ -110,6 +110,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useUserStore } from '@/stores/user';
+import { useRestaurantStore } from '@/stores/restaurant';
 import type { Restaurant } from '@/types';
 
 /**
@@ -130,6 +131,7 @@ const emit = defineEmits<{
 }>();
 
 const userStore = useUserStore();
+const restaurantStore = useRestaurantStore();
 
 /**
  * Tooltip 顯示狀態
@@ -257,6 +259,8 @@ const showAction = (key: 'favorite' | 'visited' | 'dislike') => {
  */
 const handleFavorite = () => {
   const wasFavorited = isFavorited.value;
+  // 確保此餐廳物件存在於全域餐廳清單，供收藏頁面解析
+  restaurantStore.upsertRestaurant(props.restaurant);
   if (wasFavorited) {
     userStore.removeFavorite(props.restaurant.place_id);
   } else {
@@ -270,6 +274,8 @@ const handleFavorite = () => {
  */
 const handleVisited = () => {
   const wasVisited = isVisitedStatus.value;
+  // 確保此餐廳物件存在於全域餐廳清單，供收藏/已吃過頁面解析
+  restaurantStore.upsertRestaurant(props.restaurant);
   if (wasVisited) {
     userStore.removeVisited(props.restaurant.place_id);
   } else {

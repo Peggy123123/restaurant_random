@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useUserStore } from '@/stores/user';
-import type { Restaurant, FilterOptions, Station } from '@/types';
+import type { Restaurant, FilterOptions, Station, MetroLine } from '@/types';
 
 /**
  * 餐廳資料 Store
@@ -11,6 +11,9 @@ export const useRestaurantStore = defineStore('restaurant', () => {
   // 所有餐廳資料
   const restaurants = ref<Restaurant[]>([]);
   
+  // 所有捷運站資料（用於計算最近站點）
+  const allStations = ref<Station[]>([]);
+
   // 當前選中的站點
   const selectedStation = ref<Station | null>(null);
   
@@ -32,6 +35,72 @@ export const useRestaurantStore = defineStore('restaurant', () => {
   const recommendedIds = ref<string[]>([]);
 
   /**
+   * 新增或更新一筆餐廳資料
+   * 來源可能來自地圖 Places API 或本地檔案
+   */
+  const upsertRestaurant = (restaurant: Restaurant) => {
+    // 僅保留與 public/data/restaurants.json 相同的欄位與結構
+    const normalize = (r: Restaurant): Restaurant => {
+      const lat = (r as any)?.geometry?.location?.lat;
+      const lng = (r as any)?.geometry?.location?.lng;
+      const location = { lat: typeof lat === 'number' ? lat : 0, lng: typeof lng === 'number' ? lng : 0 };
+      // 計算最近站點（若餐廳本身已有站點且有名稱，則保留；否則計算）
+      const station = (r.station?.name && r.station.name.trim() !== '') ? r.station : findNearestStation(location);
+      return {
+        place_id: r.place_id,
+        name: r.name,
+        rating: Number(r.rating ?? 0),
+        user_ratings_total: Number(r.user_ratings_total ?? 0),
+        price_level: Number(r.price_level ?? 1),
+        description: r.description ?? '',
+        website: r.website ?? '',
+        // restaurants.json 以字串陣列表達
+        types: Array.isArray(r.types) ? r.types.slice() : [],
+        vicinity: r.vicinity ?? '',
+        geometry: {
+          location,
+        },
+        distance_m: Number(r.distance_m ?? 0),
+        station,
+        photos: Array.isArray(r.photos) ? (r.photos as any[]).map(String) : [],
+      } as Restaurant;
+    };
+
+    const normalized = normalize(restaurant);
+    console.log('[Restaurant Store] upsert餐廳:', normalized.name, '站點:', normalized.station);
+    const index = restaurants.value.findIndex((r: Restaurant) => r.place_id === restaurant.place_id);
+    if (index === -1) {
+      restaurants.value.push(normalized);
+    } else {
+      restaurants.value[index] = { ...restaurants.value[index], ...normalized } as Restaurant;
+    }
+    try {
+      localStorage.setItem('restaurants_cache', JSON.stringify(restaurants.value));
+      console.log('[Restaurant Store] 已存入 localStorage，共', restaurants.value.length, '筆餐廳');
+    } catch (e) {
+      console.error('[Restaurant Store] localStorage 寫入失敗:', e);
+    }
+  };
+
+  /**
+   * 從 localStorage 載入餐廳快取（供收藏/已吃過頁面在重整後仍可解析）
+   */
+  const initFromStorage = () => {
+    try {
+      const cached = localStorage.getItem('restaurants_cache');
+      if (cached) {
+        const parsed = JSON.parse(cached) as Restaurant[];
+        if (Array.isArray(parsed)) {
+          restaurants.value = parsed;
+          console.log('[Restaurant Store] 從 localStorage 載入', parsed.length, '筆餐廳');
+        }
+      }
+    } catch (e) {
+      console.error('[Restaurant Store] localStorage 讀取失敗:', e);
+    }
+  };
+
+  /**
    * 載入餐廳資料
    */
   const loadRestaurants = async () => {
@@ -42,6 +111,59 @@ export const useRestaurantStore = defineStore('restaurant', () => {
     } catch (error) {
       console.error('載入餐廳資料失敗:', error);
     }
+  };
+
+  /**
+   * 載入所有捷運站資料
+   */
+  const loadStations = async () => {
+    try {
+      const response = await fetch('./data/stations.json');
+      const lines: MetroLine[] = await response.json();
+      allStations.value = lines.flatMap((line) => line.stations);
+      console.log('[Restaurant Store] 已載入', allStations.value.length, '個捷運站');
+    } catch (error) {
+      console.error('載入捷運站資料失敗:', error);
+    }
+  };
+
+  /**
+   * 計算兩座標間距離（公尺）
+   */
+  const haversineDistanceMeters = (a: { lat: number; lng: number }, b: { lat: number; lng: number }): number => {
+    const toRad = (n: number) => (n * Math.PI) / 180;
+    const R = 6371000;
+    const dLat = toRad(b.lat - a.lat);
+    const dLng = toRad(b.lng - a.lng);
+    const lat1 = toRad(a.lat);
+    const lat2 = toRad(b.lat);
+    const sinDLat = Math.sin(dLat / 2);
+    const sinDLng = Math.sin(dLng / 2);
+    const h = sinDLat * sinDLat + Math.cos(lat1) * Math.cos(lat2) * sinDLng * sinDLng;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  };
+
+  /**
+   * 找出離餐廳最近的捷運站
+   */
+  const findNearestStation = (location: { lat: number; lng: number }): { name: string; line: string } => {
+    if (allStations.value.length === 0) {
+      return { name: '', line: '' };
+    }
+    const first = allStations.value[0];
+    if (!first) {
+      return { name: '', line: '' };
+    }
+    let nearest: Station = first;
+    let minDist = haversineDistanceMeters(location, nearest.location);
+    for (const station of allStations.value) {
+      const dist = haversineDistanceMeters(location, station.location);
+      if (dist < minDist) {
+        minDist = dist;
+        nearest = station;
+      }
+    }
+    return { name: nearest.name, line: nearest.line };
   };
 
   /**
@@ -181,10 +303,13 @@ export const useRestaurantStore = defineStore('restaurant', () => {
     filterOptions,
     currentRecommendation,
     loadRestaurants,
+    loadStations,
     setSelectedStation,
     updateFilterOptions,
     getFilteredRestaurants,
     getRandomRecommendation,
     resetRecommendations,
+    upsertRestaurant,
+    initFromStorage,
   };
 });

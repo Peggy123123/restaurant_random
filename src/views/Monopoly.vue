@@ -1,10 +1,8 @@
 <template>
   <div class="monopoly-page bg-slate-50">
     <div class="max-w-lg mx-auto px-4 py-6">
-      <h2 class="text-2xl font-bold text-slate-900 mb-6 text-center">台北捷運美食地圖</h2>
-      
       <!-- 大富翁地圖區域 -->
-      <div class="bg-white rounded-2xl shadow-md p-4 mb-6">
+      <div class="bg-white rounded-2xl shadow-md p-4 mb-2">
         <div class="overflow-hidden rounded-xl">
           <div
             ref="mapContainer"
@@ -27,16 +25,18 @@
         </div>
       </div>
 
+      <p class="text-gray-400 mb-2 text-center text-sm">點擊地圖上的站點，查看站點蒐集狀況。蒐集完整條捷運線後，即可獲得頭銜！</p>
+
       <!-- 站點資訊區域 -->
       <div v-if="selectedStationInfo" class="bg-white rounded-xl shadow-md p-4 mb-6">
         <h3 class="text-lg font-bold text-slate-900 mb-2">{{ selectedStationInfo.name }}</h3>
         <div class="space-y-2">
           <div class="flex justify-between">
-            <span class="text-slate-600">吃過餐廳：</span>
+            <span class="text-slate-600">吃過餐廳</span>
             <span class="font-semibold text-blue-600">{{ selectedStationInfo.visitedCount }} 間</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-slate-600">已收藏：</span>
+            <span class="text-slate-600">已收藏</span>
             <span class="font-semibold text-purple-600">{{ selectedStationInfo.favoriteCount }} 間</span>
           </div>
         </div>
@@ -45,14 +45,25 @@
       <!-- 成就統計 -->
       <div class="grid grid-cols-2 gap-4">
         <div class="bg-white rounded-xl shadow-md p-4 text-center">
-          <div class="text-3xl mb-2">🏆</div>
-          <div class="text-2xl font-bold text-blue-500">{{ visitedStationsCount }}</div>
-          <div class="text-sm text-slate-500">已點亮站點</div>
+          <div class="text-2xl font-bold text-blue-500 select-none">{{ visitedStationsCount }}</div>
+          <div class="text-sm text-slate-500 flex items-center justify-center gap-1">
+            已蒐集站點
+            <Tooltip
+              :text="'蒐集站點方法：在該站點吃過1間以上的餐廳。\n在地圖上亮起的站點就是已蒐集到的站點'"
+              :isDisplayed="showTooltip"
+              :onClose="() => showTooltip = false"
+            >
+              <font-awesome-icon
+                icon="fa-solid fa-circle-question"
+                class="cursor-pointer text-slate-400 hover:text-slate-600"
+                @click="toggleTooltip"
+              />
+            </Tooltip>
+          </div>
         </div>
         <div class="bg-white rounded-xl shadow-md p-4 text-center">
-          <div class="text-3xl mb-2">⭐</div>
-          <div class="text-2xl font-bold text-purple-500">{{ completedLinesCount }}</div>
-          <div class="text-sm text-slate-500">完成線路</div>
+          <div class="text-2xl font-bold text-purple-500 select-none">{{ completedLinesCount }}</div>
+          <div class="text-sm text-slate-500">完成捷運線</div>
         </div>
       </div>
     </div>
@@ -87,6 +98,7 @@
 import { ref, computed, onMounted, watch, nextTick } from 'vue';
 import { useRestaurantStore } from '@/stores/restaurant';
 import { useUserStore } from '@/stores/user';
+import Tooltip from '@/components/common/Tooltip.vue';
 // @ts-ignore: vite raw import for svg content
 import mapSvgContent from '@/assets/images/map/image-map.svg?raw';
 
@@ -135,6 +147,9 @@ const allStations = ref<SimpleStation[]>([]);
 const isStationVisited = (stationId: string): boolean => {
   const station = allStations.value.find(s => s.id === stationId);
   if (!station) return false;
+
+  // 檢查該站點名稱是否在任何線路中都有已吃過的餐廳
+  // 這樣轉乘站只要在任一線路被吃過就算已蒐集
   return restaurantStore.restaurants.some(restaurant => {
     return (
       restaurant.station.name === station.name &&
@@ -379,18 +394,20 @@ const clampTranslate = () => {
 const visitedStationsCount = computed(() => {
   const visitedNames = new Set<string>();
   allStations.value.forEach(station => {
-    const hasVisited = restaurantStore.restaurants.some(restaurant => {
-      return restaurant.station.name === station.name && userStore.visitedIds.includes(restaurant.place_id);
-    });
-    if (hasVisited) visitedNames.add(station.name);
+    // 使用 isStationVisited 函數，確保轉乘站邏輯一致
+    if (isStationVisited(station.id)) {
+      visitedNames.add(station.name);
+    }
   });
   return visitedNames.size;
 });
 
 // 某條線是否已完成：每站至少有一間「已吃過」
+// 轉乘站只要在任一線路被吃過就算該站已蒐集
 const isLineCompleted = (line: SimpleLine): boolean => {
   return line.stations.every(station => {
-    return restaurantStore.restaurants.some(r => r.station.name === station.name && userStore.visitedIds.includes(r.place_id));
+    // 使用 isStationVisited 函數，它已經處理了轉乘站的邏輯
+    return isStationVisited(station.id);
   });
 };
 
@@ -414,6 +431,9 @@ const showTitleModal = ref(false);
 const modalTitleName = ref('');
 const modalTitleIcon = ref('🏆');
 
+// Tooltip 狀態
+const showTooltip = ref(false);
+
 const closeTitleModal = () => {
   showTitleModal.value = false;
 };
@@ -422,6 +442,10 @@ const goToSettings = () => {
   // 透過全域事件讓 App.vue 導頁
   window.dispatchEvent(new CustomEvent('navigate-settings'));
   showTitleModal.value = false;
+};
+
+const toggleTooltip = () => {
+  showTooltip.value = !showTooltip.value;
 };
 
 // 驗證所有線之頭銜有效性（每站皆需有已吃過餐廳）
@@ -605,8 +629,11 @@ const applyStationsVisual = () => {
     const isFavorite = isStationFavorite(station.id);
     const color = getStationColor(station.id);
 
-    // 新邏輯：直接尋找該站節點下的 circle，移除 cls-29 並設定 fill
+    // 新邏輯：直接尋找該站節點下的 circle 和 rect，移除 cls-29 並設定 fill
     const circles = (node as SVGElement).querySelectorAll('circle');
+    const rects = (node as SVGElement).querySelectorAll('rect');
+
+    // 處理 circle 元素
     if (circles.length > 0) {
       circles.forEach(circle => {
         if (isVisited || isFavorite) {
@@ -616,8 +643,22 @@ const applyStationsVisual = () => {
         }
         circle.setAttribute('fill', color);
       });
-    } else {
-      // 若沒有 circle，退回以節點著色（保險）
+    }
+
+    // 處理 rect 元素（轉乘站可能使用 rect 而不是 circle）
+    if (rects.length > 0) {
+      rects.forEach(rect => {
+        if (isVisited || isFavorite) {
+          rect.classList.remove('cls-29');
+        } else {
+          rect.classList.add('cls-29');
+        }
+        rect.setAttribute('fill', color);
+      });
+    }
+
+    // 若沒有 circle 和 rect，退回以節點著色（保險）
+    if (circles.length === 0 && rects.length === 0) {
       (node as SVGElement).style.setProperty('fill', color);
     }
 

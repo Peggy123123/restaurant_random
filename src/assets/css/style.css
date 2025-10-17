@@ -11,12 +11,12 @@
     --mrt-red-favorite: #FECACA;   /* 淺紅 */
     --mrt-green-visited:rgb(3, 109, 53);  /* 綠 */
     --mrt-green-favorite:rgb(78, 210, 124); /* 淺綠 */
-    --mrt-orange-visited: #f5a623; /* 橘 */
-    --mrt-orange-favorite: #FED7AA;/* 淺橘 */
-    --mrt-brown-visited: #c4a287;  /* 棕 */
-    --mrt-brown-favorite: #EADBC8; /* 淺棕 */
-    --mrt-yellow-visited: #ffd700; /* 黃 */
-    --mrt-yellow-favorite: #FEF08A;/* 淺黃 */
+    --mrt-orange-visited:rgb(254, 149, 28); /* 橘 */
+    --mrt-orange-favorite:rgb(244, 158, 60);/* 淺橘 */
+    --mrt-brown-visited:rgb(139, 67, 7);  /* 棕 */
+    --mrt-brown-favorite:rgb(218, 143, 44); /* 淺棕 */
+    --mrt-yellow-visited:rgb(255, 217, 0); /* 黃 */
+    --mrt-yellow-favorite:rgb(252, 234, 95);/* 淺黃 */
   }
   body {
     margin: 0;

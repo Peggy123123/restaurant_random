@@ -43,7 +43,7 @@
           :icon="['fas', 'gamepad']" 
           class="w-6 h-6 text-xl"
         />
-        <span class="text-xs font-semibold">大富翁</span>
+        <span class="text-xs font-semibold">蒐集</span>
       </button>
 
       <!-- 收藏頁 -->

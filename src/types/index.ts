@@ -26,7 +26,7 @@ export interface Restaurant {
     name: string;
     line: string;
   };
-  photos: RestaurantPhoto[];
+  photos: (RestaurantPhoto | string)[];
 }
 
 /**
